@@ -63,10 +63,6 @@ export PACKAGES="\
 	gvfs-nfs \
 	gzip \
 	htop \
-	intel-gpu-tools \
-	intel-media-driver \
-	intel-ucode \
-	intel-undervolt \
 	less \
 	lib32-curl \
 	lib32-fontconfig \
@@ -118,12 +114,6 @@ export PACKAGES="\
 	nfs-utils \
 	noto-fonts-emoji \
 	nss-mdns \
-	nvidia-open-dkms \
-	opencl-nvidia \
-	lib32-opencl-nvidia \
-	nvidia-utils \
-	lib32-nvidia-utils \
-	nvidia-prime \
 	openal \
 	openrazer-daemon \
 	openssh \
@@ -245,13 +235,13 @@ export SERVICES="\
 	inputplumber \
 	inputplumber-suspend \
 	lightdm \
-	nvidia-powerd \
 	pcscd.socket \
 	powerstation \
 	steam-powerbuttond \
 	sshd \
 	systemd-timesyncd \
 	swapfile \
+	amd-oc \
 "
 
 export USER_SERVICES="\

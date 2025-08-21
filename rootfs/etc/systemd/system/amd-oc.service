@@ -1,0 +1,14 @@
+[Unit]
+Description=Apply AMD RX 7900 XTX OC settings (power and boost clock)
+After=systemd-udev-settle.service
+ConditionPathExists=/sys/class/drm
+
+[Service]
+Type=oneshot
+ExecStartPre=/usr/bin/bash -c 'sleep 4'
+ExecStart=/usr/bin/bash /usr/bin/apply-amd-oc.sh
+TimeoutSec=25
+RemainAfterExit=no
+
+[Install]
+WantedBy=multi-user.target
