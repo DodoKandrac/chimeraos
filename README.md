@@ -28,7 +28,7 @@ Bringing the console experience to pc.
 
 ## This fork: AMD-optimized build (RX 7900 XTX)
 
-- Target: All-AMD systems; unnecessary Intel and NVIDIA packages removed from the manifest to reduce dependencies and image size.
+- Target: All-AMD systems; unnecessary Intel/NVIDIA packages and Intel Vulkan override packages removed to reduce dependencies and image size.
 - AMD overclock for RX 7900 XTX: 2550 MHz max boost clock and 370 W power limit.
 - Applied automatically on every boot:
   - Kernel parameter enabling OC features: `amdgpu.ppfeaturemask=0xffffffff` in `rootfs/usr/lib/frzr.d/bootconfig.conf`.
