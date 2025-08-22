@@ -50,6 +50,13 @@ btrfs subvolume create ${BUILD_PATH}
 # copy the makepkg.conf into chroot
 cp /etc/makepkg.conf rootfs/etc/makepkg.conf
 
+# prepare host pacman keyring for pacstrap and installs (idempotent)
+command -v timedatectl >/dev/null 2>&1 && timedatectl set-ntp true || true
+pacman-key --init || true
+pacman-key --populate archlinux || true
+pacman -Sy --needed --noconfirm archlinux-keyring
+pacman -Scc --noconfirm || true
+
 # bootstrap using our configuration
 pacstrap -K -C rootfs/etc/pacman.conf ${BUILD_PATH}
 
@@ -80,7 +87,13 @@ set -x
 
 source /manifest
 
-pacman-key --populate
+# Initialize and populate keyring inside chroot (idempotent)
+command -v timedatectl >/dev/null 2>&1 && timedatectl set-ntp true || true
+date -u || true
+pacman-key --init || true
+pacman-key --populate archlinux || true
+pacman -Sy --needed --noconfirm archlinux-keyring
+pacman -Scc --noconfirm || true
 
 echo "LANG=en_US.UTF-8" > /etc/locale.conf
 locale-gen
@@ -94,10 +107,6 @@ sed -i '/CheckSpace/s/^/#/g' /etc/pacman.conf
 # update package databases
 pacman --noconfirm -Syy
 
-# Ensure we have the newest signing keys before installing anything
-pacman --noconfirm -S archlinux-keyring
-# Drop any previously cached packages that failed verification
-rm -rf /var/cache/pacman/pkg
 # Recommended: ensure CA certificates are present for TLS (mirrors, keyservers)
 pacman --noconfirm -S ca-certificates ca-certificates-mozilla
 
