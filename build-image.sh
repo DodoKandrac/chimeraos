@@ -94,13 +94,6 @@ sed -i '/CheckSpace/s/^/#/g' /etc/pacman.conf
 # update package databases
 pacman --noconfirm -Syy
 
-# Ensure we have the newest signing keys before installing anything
-pacman --noconfirm -S archlinux-keyring
-# Drop any previously cached packages that failed verification
-rm -rf /var/cache/pacman/pkg
-# Recommended: ensure CA certificates are present for TLS (mirrors, keyservers)
-pacman --noconfirm -S ca-certificates ca-certificates-mozilla
-
 # Disable check and debug for makepkg on the final image
 sed -i '/BUILDENV/s/ check/ !check/g' /etc/makepkg.conf
 sed -i '/OPTIONS/s/ debug/ !debug/g' /etc/makepkg.conf
